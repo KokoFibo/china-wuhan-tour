@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+import {photos} from '../lib/photos';
+import {ui,info,flights,checks,hotels,days,dests,AI} from '../data/tour';
+const {lang}=Astro.props;
+const p=lang==='zh'?'/zh':'';
+const alt=lang==='zh'?'/':'/zh/';
+const t=(a:string,z:string)=>lang==='zh'?z:a;
+const nm=(s:string)=>dests.find(d=>d.slug===s);
+const pics=await Promise.all(dests.map(d=>photos(d.slug,d.wp)));
+const cn=['一','二','三','四','五','六','七','八'];
+---
+<Base title="8D Wuhan Fenghuang Zhangjiajie" lang={lang} alt={alt}>
+<section class="hero">
+<div class="in">
+<span class="eye">Wuhan · Jingzhou · Changde · Fenghuang · Zhangjiajie · Yichang</span>
+<h1>{t('8 Hari menyusuri pegunungan ','8天探访 ')}<em>{t('Avatar','阿凡达')}</em>{t(' di Hunan & Hubei',' 湖南与湖北')}</h1>
+<p>{t('Dari lampion Hubu Lane hingga tebing kaca Zhangjiajie','从户部巷的灯火到张家界的玻璃栈道')}<br/>{t('5–12 Oktober 2026','2026年10月5日至12日')}</p>
+<div class="facts">
+<div class="fact"><small>{t('Tanggal berkumpul','集合日期')}</small>{t('Senin, 05 Okt 2026 — 03.30 WIB','2026年10月5日 03:30')}</div>
+<div class="fact"><small>{t('Titik kumpul','集合地点')}</small>{t('Soekarno-Hatta T3, Gate 2','苏加诺-哈达T3，2号门')}</div>
+<div class="fact"><small>{t('Tour leader','领队')}</small>Jeanette Velicia · <a href="https://wa.me/6281295033333" target="_blank" rel="noopener">+62 812-9503-3333</a></div>
+</div></div>
+<svg class="mt mt2" viewBox="0 0 1200 160" preserveAspectRatio="none"><path d="M0 160V80l90-50 80 60 110-70 120 90 140-80 130 70 150-60 120 70 130-50 130 40v80z"/></svg>
+<svg class="mt mt1" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 120V70l120-40 90 50 130-50 150 60 160-40 140 50 130-30 120 30 160-30v100z"/></svg>
+</section>
+<div class="wrap">
+<section class="sec" id="info"><span class="eye rv">{t('Sebelum berangkat','出发前')}</span><h2 class="rv">{ui.h.info[lang]}</h2>
+<div class="grid">
+{info.map(([k,v],i)=>(<div class="card rv"><b>{k[lang]}</b><br/>{v[lang]}
+{i===0 ? (<div class="tour-title">8D Wuhan Fenghuang Zhangjiajie</div>) : null}
+{i===2 ? (<div><a class="btn sm" href="https://wa.me/6281295033333" target="_blank" rel="noopener">{ui.leader[lang]}</a><a class="btn o sm" href="tel:+628129503333">{ui.call[lang]}</a></div>) : null}
+</div>))}
+</div></section>
+<section class="sec" id="flight"><h2 class="rv">{ui.h.flight[lang]}</h2>
+<div class="grid">{flights.map(([k,v])=>(<div class="card rv"><b>{k[lang]}</b><br/>{v[lang]}</div>))}</div></section>
+<section class="sec" id="plan"><span class="eye rv">{t('Hari demi hari','每日行程')}</span><h2 class="rv">{ui.h.plan[lang]}</h2>
+{days.map((d,i)=>(<div class="day rv"><div class="num">{cn[i]}<small>0{i+1}</small></div>
+<div><div class="date">{5+i} {t('Oktober','10月')}</div><h3>{d.t[lang]}</h3><p>{d.x[lang]}</p>
+{d.s.map(s=>(<a class="chp" href={p+'/destinasi/'+s+'/'}>{nm(s)?.name[lang]}</a>))}</div></div>))}
+</section>
+<section class="sec" id="dest"><span class="eye rv">{t('Kisah di balik setiap tempat','每个景点的故事')}</span><h2 class="rv">{ui.h.dest[lang]}</h2>
+<div class="grid">
+{dests.map((d,i)=>(<a href={p+'/destinasi/'+d.slug+'/'} style="text-decoration:none;color:inherit" class="card lk rv"><div class="ph"><span class="ch" style={'font-size:'+Math.min(28,64/d.ch.length)+'cqw'}>{d.ch}</span>{pics[i][0] ? (<img src={pics[i][0]} alt={d.name[lang]} loading="lazy" referrerpolicy="no-referrer"/>) : null}</div><b>{d.name[lang]}</b><br/><small>{ui.day[lang]} {d.day} {ui.dayEnd[lang]}</small><br/><span class="btn">{ui.more[lang]}</span></a>))}
+</div></section>
+<section class="sec" id="hotel"><span class="eye rv">{t('Tempat menginap','住宿')}</span><h2 class="rv">{ui.h.hotel[lang]}</h2>
+<div class="grid">{hotels.map(h=>(<div class="card rv"><small class="date">{h.d}</small><br/><b>{h.n}</b><br/>{h.a}<br/><a href={'tel:'+h.t.replace(/[^+0-9]/g,'')}>{h.t}</a></div>))}</div></section>
+<section class="sec" id="prep"><span class="eye rv">{t('Persiapan','准备')}</span><h2 class="rv">{ui.h.prep[lang]}</h2>
+{checks.map(([k,v],i)=>(<details class="rv"><summary>{k[lang]}</summary><p>{v[lang]}</p>
+{i===6 ? (<p><a class="btn" href={AI} target="_blank" rel="noopener">{ui.ai[lang]}</a> <a href={AI} target="_blank" rel="noopener">{AI}</a></p>) : null}
+</details>))}
+</section>
+</div></Base>

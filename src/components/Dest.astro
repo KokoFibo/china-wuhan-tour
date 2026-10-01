@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import {photos} from '../lib/photos';
+import {ui,dests} from '../data/tour';
+const {lang,slug}=Astro.props;
+const p=lang==='zh'?'/zh':'';
+const i=dests.findIndex(x=>x.slug===slug);
+const d=dests[i];
+const pv=dests[i-1];
+const nx=dests[i+1];
+const pics=await photos(d.slug,d.wp);
+const alt=(lang==='zh'?'':'/zh')+'/destinasi/'+slug+'/';
+const fun=lang==='zh'?'你知道吗？':'Tahu kah kamu?';
+const paras=d.h[lang].split('\n\n');
+---
+<Base title={d.name[lang]} lang={lang} alt={alt}>
+<div class="wrap sec">
+<a href={p+'/#dest'}>{ui.back[lang]}</a>
+<span class="eye rv" style="display:block;margin-top:1rem">{ui.day[lang]} {d.day} {ui.dayEnd[lang]}</span>
+<h1 class="rv" style="font-size:clamp(1.8rem,6vw,3rem);color:var(--jade2)">{d.name[lang]}</h1>
+{pics.length>0 ? (
+<div class="gal2">
+{pics.map(u=>(<figure><img src={u} alt={d.name[lang]} loading="lazy" referrerpolicy="no-referrer"/></figure>))}
+</div>
+) : (
+<div class="ph rv" style="margin-top:1rem;aspect-ratio:16/9"><span class="ch" style={'font-size:'+Math.min(28,64/d.ch.length)+'cqw'}>{d.ch}</span></div>
+)}
+<div class="card rv"><h2>{ui.hist[lang]}</h2>
+{paras.map((x)=>(x.startsWith('## ') ? (<h3 style="color:var(--jade2);margin:1.4rem 0 .5rem">{x.slice(3)}</h3>) : (<p style="margin-bottom:.9rem">{x}</p>)))}
+</div>
+<div class="fun rv"><b>💡 {fun}</b><p>{d.fun[lang]}</p></div>
+<div style="display:flex;justify-content:space-between;gap:1rem;margin-top:2rem;flex-wrap:wrap">
+{pv ? (<a class="btn o" href={p+'/destinasi/'+pv.slug+'/'}>← {pv.name[lang]}</a>) : (<div></div>)}
+{nx ? (<a class="btn" href={p+'/destinasi/'+nx.slug+'/'}>{nx.name[lang]} →</a>) : null}
+</div>
+</div></Base>

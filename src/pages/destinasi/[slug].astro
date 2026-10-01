@@ -1,0 +1,12 @@
+---
+import Dest from '../../components/Dest.astro';
+import {dests} from '../../data/tour';
+
+export function getStaticPaths() {
+  return dests.map((d) => ({ params: { slug: d.slug } }));
+}
+
+const { slug } = Astro.params;
+---
+
+<Dest lang="id" slug={slug}></Dest>

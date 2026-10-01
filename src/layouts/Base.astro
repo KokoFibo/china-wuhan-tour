@@ -1,0 +1,43 @@
+---
+import '../styles/global.css';
+import {ui} from '../data/tour';
+const {title,lang,alt}=Astro.props;
+const p=lang==='zh'?'/zh':'';
+const lh=lang==='zh'?'zh-CN':'id';
+---
+<!doctype html>
+<html lang={lh}>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>{title}</title>
+<link rel="icon" href="/favicon.ico" sizes="any"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+<link rel="manifest" href="/site.webmanifest"/>
+<meta name="theme-color" content="#2F5D50"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;900&family=Noto+Sans+SC:wght@400;600&display=swap" rel="stylesheet"/>
+<!-- Google tag (gtag.js) -->
+<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-6G8BJHVYFD"></script>
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6G8BJHVYFD');
+</script>
+</head>
+<body>
+<header><div class="bar">
+<a class="logo" href={p+'/'}>8D Wuhan Fenghuang Zhangjiajie</a>
+<button id="bt" aria-label="Menu">☰</button>
+<nav id="nv">
+{ui.nav.map(([k,l])=>(<a href={k?p+'/#'+k:p+'/'}>{l[lang]}</a>))}
+<a class="lg" href={alt}>{ui.lang[lang]}</a>
+</nav></div></header>
+<slot/>
+<footer>CWZH8-051026MF · 05–12 Okt 2026 · 祝您旅途愉快</footer>
+<script>import '../scripts/main.ts';</script>
+</body>
+</html>
