@@ -33,7 +33,7 @@ export const days:{t:B;s:string[];x:B}[]=[
  {t:b('Zhangjiajie','张家界'),s:['tianmen'],x:b('Cableway ke Tianmen Mountain (Glass Walkway, 12 eskalator, Tianmen Cave), foto di 72 Strange Building. Opsional: Fox Lady Show RMB 400/pax.','天门山索道（玻璃栈道、12段扶梯、天门洞），七十二奇楼拍照。自费：天门狐仙秀 RMB 400/人。')},
  {t:b('Zhangjiajie','张家界'),s:['tianzi'],x:b('Tianzi / Avatar Mountain naik Bailong Lift (326 m), mampir toko Medicine & Silk.','天子山（阿凡达山），乘百龙电梯（326米），参观药材与丝绸店。')},
  {t:b('Zhangjiajie','张家界'),s:['glass-bridge'],x:b('Grand Canyon Glass Bridge, toko Latex & Jewelry. Opsional: Huanglong Cave RMB 400/pax.','大峡谷玻璃桥，乳胶与珠宝店。自费：黄龙洞 RMB 400/人。')},
- {t:b('Yichang & Jingzhou','宜昌与荆州'),s:['three-gorges','jingzhou'],x:b('Bendungan Three Gorges Dam, lalu kembali ke Jingzhou.','参观三峡大坝，返回荆州。')},
- {t:b('Wuhan ~ Jakarta','武汉～雅加达'),s:['wuhan'],x:b('Perjalanan darat Jingzhou ke Wuhan, terbang pulang ke Jakarta.','荆州乘车前往武汉，搭机返回雅加达。')}];
+ {t:b('Yichang & Jingzhou','宜昌与荆州'),s:['three-gorges'],x:b('Bendungan Three Gorges Dam, lalu kembali ke Jingzhou.','参观三峡大坝，返回荆州。')},
+ {t:b('Wuhan ~ Jakarta','武汉～雅加达'),s:[],x:b('Perjalanan darat Jingzhou ke Wuhan, terbang pulang ke Jakarta.','荆州乘车前往武汉，搭机返回雅加达。')}];
 export {dests,hotels} from './dests';
 export const q=(s:string)=>encodeURIComponent(s);
